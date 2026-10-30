@@ -109,7 +109,7 @@ src/
     useIntroSequence.ts             Pumpkin flight, collision, and color timeline
 ```
 
-`AGENTS.md` contains the project's design direction and implementation requirements. `index.html` holds the document metadata and Fredoka font links. `vite.config.ts` configures React and Tailwind CSS for Vite.
+`AGENTS.md` contains the project's design direction and implementation requirements. `index.html` holds the document metadata and Fredoka font links. `public/spooky-holiday-social.png` is the 1200 × 630 Open Graph/Twitter share image, and `public/favicon.ico` is the browser tab icon. `vite.config.ts` configures React and Tailwind CSS for Vite.
 
 ## Intro and replay flow
 
@@ -143,6 +143,10 @@ To change sound levels or swap tracks, update `src/hooks/useHalloweenAudio.ts` a
 - **Sound volume and sound assets:** `src/hooks/useHalloweenAudio.ts`
 - **Colors, layout, responsive breakpoints, and ambient effects:** `src/index.css`
 - **Page title, description, theme color, and font import:** `index.html`
+- **Social preview artwork:** `public/spooky-holiday-social.png`
+- **Browser tab icon:** `public/favicon.ico`
+
+The social preview image is referenced by a root-relative path in the Open Graph and Twitter metadata. For reliable previews on social platforms, keep the image publicly accessible and configure those image URLs as absolute HTTPS URLs after choosing the production domain. No production domain is assumed or embedded in this project.
 
 The navigation and hero currently use placeholder hash destinations for sections that are not implemented. Replace those links when the corresponding event pages or real destinations are available. No venue, ticket price, event time, or contact details are supplied by the project.
 
