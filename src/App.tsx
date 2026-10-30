@@ -3,15 +3,19 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ExplosionEffect } from "./components/intro/ExplosionEffect";
 import { HalloweenIntro } from "./components/intro/HalloweenIntro";
 import { Navbar } from "./components/layout/Navbar";
+import { SoundToggle } from "./components/layout/SoundToggle";
 import { SpiderWeb } from "./components/layout/SpiderWeb";
 import { Hero } from "./components/sections/Hero";
 import { PumpkinSkinfall } from "./components/sections/PumpkinSkinfall";
+import { useHalloweenAudio } from "./hooks/useHalloweenAudio";
 
 type IntroStage = "pumpkin-scene" | "explosion" | "revealing" | "revealed";
 
 function App() {
   const shouldReduceMotion = useReducedMotion();
   const [introStage, setIntroStage] = useState<IntroStage>("pumpkin-scene");
+  const { isEnabled, toggleSound, playLaugh, playExplosion } =
+    useHalloweenAudio();
 
   const handlePumpkinSceneComplete = useCallback(() => {
     setIntroStage("explosion");
@@ -27,6 +31,10 @@ function App() {
 
   const handleExplosionComplete = useCallback(() => {
     setIntroStage("revealed");
+  }, []);
+
+  const handleReplayIntro = useCallback(() => {
+    setIntroStage("pumpkin-scene");
   }, []);
 
   const isRevealed =
@@ -46,6 +54,7 @@ function App() {
 
   return (
     <>
+      <SoundToggle isEnabled={isEnabled} onToggle={toggleSound} />
       <motion.main
         className={`landing-page${isRevealed ? "" : " landing-page--concealed"}`}
         id="event"
@@ -59,7 +68,7 @@ function App() {
         <SpiderWeb className="spider-web spider-web--right" />
         <div className="page-content">
           <Navbar isRevealed={isRevealed} />
-          <Hero isRevealed={isRevealed} />
+          <Hero isRevealed={isRevealed} onReplayIntro={handleReplayIntro} />
         </div>
         <PumpkinSkinfall
           isActive={isRevealed && shouldReduceMotion !== true}
@@ -70,6 +79,7 @@ function App() {
           <HalloweenIntro
             onComplete={handlePumpkinSceneComplete}
             onError={handlePumpkinSceneError}
+            onCollision={playLaugh}
           />
         )}
         {(introStage === "explosion" || introStage === "revealing") &&
@@ -77,6 +87,7 @@ function App() {
           <ExplosionEffect
             onReveal={handleExplosionReveal}
             onComplete={handleExplosionComplete}
+            onExplode={playExplosion}
           />
         )}
       </AnimatePresence>

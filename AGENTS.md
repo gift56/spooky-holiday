@@ -98,6 +98,8 @@ Suggested timing (adjust after testing):
 - With each collision: giant pumpkin progressively gains color, shakes and glows brighter.
 - 7.8–8.8s: bright flash and explosion expand over the full screen in orange.
 - 8.8s onward: hero elements reveal underneath as the orange cover, particles and smoke clear.
+- Provide a persistent sound toggle; start audio only after the visitor enables it, with low-volume looping ambience.
+- Play the laugh cue at each small-pumpkin collision and the explosion cue as the giant pumpkin bursts.
 
 The sequence should feel quick and intentional. Aim for approximately 5–7 seconds total.
 

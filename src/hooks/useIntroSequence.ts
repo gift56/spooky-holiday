@@ -5,6 +5,7 @@ import type { Timeline } from "motion/react";
 type UseIntroSequenceOptions = {
   onComplete: () => void;
   onError: () => void;
+  onCollision: () => void;
 };
 
 const entries = [
@@ -27,7 +28,11 @@ const pumpkinColors = [
   "grayscale(0) brightness(1.08) saturate(1.18)",
 ] as const;
 
-export function useIntroSequence({ onComplete, onError }: UseIntroSequenceOptions) {
+export function useIntroSequence({
+  onComplete,
+  onError,
+  onCollision,
+}: UseIntroSequenceOptions) {
   const [scope, animate] = useAnimate<HTMLDivElement>();
 
   useEffect(() => {
@@ -160,6 +165,7 @@ export function useIntroSequence({ onComplete, onError }: UseIntroSequenceOption
         );
         if (isCancelled) return;
 
+        onCollision();
         await playTogether(
           animate(
             visitor,
@@ -265,6 +271,7 @@ export function useIntroSequence({ onComplete, onError }: UseIntroSequenceOption
   }, [
     animate,
     onComplete,
+    onCollision,
     onError,
     scope,
   ]);

@@ -6,10 +6,15 @@ import { useIntroSequence } from "../../hooks/useIntroSequence";
 type HalloweenIntroProps = {
   onComplete: () => void;
   onError: () => void;
+  onCollision: () => void;
 };
 
-export function HalloweenIntro({ onComplete, onError }: HalloweenIntroProps) {
-  const introScope = useIntroSequence({ onComplete, onError });
+export function HalloweenIntro({
+  onComplete,
+  onError,
+  onCollision,
+}: HalloweenIntroProps) {
+  const introScope = useIntroSequence({ onComplete, onError, onCollision });
 
   return (
     <motion.div

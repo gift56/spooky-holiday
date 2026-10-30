@@ -7,6 +7,7 @@ import explosionImage from "../../assets/explosion-cutout.png";
 type ExplosionEffectProps = {
   onReveal: () => void;
   onComplete: () => void;
+  onExplode: () => void;
 };
 
 const particles = [
@@ -49,6 +50,7 @@ const particleStyles = particles.map(([x, y], index) => ({
 export function ExplosionEffect({
   onReveal,
   onComplete,
+  onExplode,
 }: ExplosionEffectProps) {
   const [scope, animate] = useAnimate<HTMLDivElement>();
   const shouldReduceMotion = useReducedMotion();
@@ -87,6 +89,7 @@ export function ExplosionEffect({
       }
 
       if (isCancelled) return;
+      onExplode();
 
       const coverAnimation = animate(
         root,
@@ -157,7 +160,7 @@ export function ExplosionEffect({
       releaseReveal?.();
       activeAnimations.forEach((animation) => animation.cancel());
     };
-  }, [animate, onComplete, onReveal, scope, shouldReduceMotion]);
+  }, [animate, onComplete, onExplode, onReveal, scope, shouldReduceMotion]);
 
   return (
     <div

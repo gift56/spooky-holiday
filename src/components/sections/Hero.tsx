@@ -4,6 +4,7 @@ import { SocialLinks } from "../layout/SocialLinks";
 
 type HeroProps = {
   isRevealed: boolean;
+  onReplayIntro: () => void;
 };
 
 const textTransition = {
@@ -11,7 +12,7 @@ const textTransition = {
   ease: [0.2, 0.75, 0.25, 1] as const,
 };
 
-export function Hero({ isRevealed }: HeroProps) {
+export function Hero({ isRevealed, onReplayIntro }: HeroProps) {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero__copy">
@@ -56,28 +57,18 @@ export function Hero({ isRevealed }: HeroProps) {
             },
           }}
         >
-          <motion.a
+          <motion.button
             className="button button--primary"
-            href="#contact"
+            type="button"
+            onClick={onReplayIntro}
             variants={{
               hidden: { opacity: 0, y: 18 },
               visible: { opacity: 1, y: 0 },
             }}
             transition={textTransition}
           >
-            Get a ticket
-          </motion.a>
-          <motion.a
-            className="button button--secondary"
-            href="#rules"
-            variants={{
-              hidden: { opacity: 0, y: 18 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            transition={textTransition}
-          >
-            Rules
-          </motion.a>
+            Replay intro
+          </motion.button>
         </motion.div>
         <div className="hero__footer">
           <SocialLinks isRevealed={isRevealed} />
