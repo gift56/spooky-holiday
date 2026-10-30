@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, Skull, X } from "lucide-react";
+import { motion } from "motion/react";
 
 const navigationLinks = [
   { label: "About Event", href: "#event" },
@@ -9,15 +10,31 @@ const navigationLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-export function Navbar() {
+type NavbarProps = {
+  isRevealed: boolean;
+};
+
+const revealTransition = {
+  duration: 0.6,
+  ease: [0.2, 0.75, 0.25, 1] as const,
+};
+
+export function Navbar({ isRevealed }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="site-header">
-      <a className="brand" href="#event" aria-label="Spooky Holiday home">
+      <motion.a
+        className="brand"
+        href="#event"
+        aria-label="Spooky Holiday home"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isRevealed ? 1 : 0 }}
+        transition={{ ...revealTransition, delay: isRevealed ? 0.05 : 0 }}
+      >
         <Skull className="brand__icon" aria-hidden="true" />
         <span>Spooky Holiday</span>
-      </a>
+      </motion.a>
 
       <button
         className="menu-toggle"
@@ -30,10 +47,13 @@ export function Navbar() {
         {isMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
       </button>
 
-      <nav
+      <motion.nav
         className={`site-nav${isMenuOpen ? " site-nav--open" : ""}`}
         id="primary-navigation"
         aria-label="Main navigation"
+        initial={{ opacity: 0, y: -22 }}
+        animate={{ opacity: isRevealed ? 1 : 0, y: isRevealed ? 0 : -22 }}
+        transition={{ ...revealTransition, delay: isRevealed ? 0.24 : 0 }}
       >
         {navigationLinks.map(({ label, href }) => (
           <a
@@ -44,7 +64,7 @@ export function Navbar() {
             {label}
           </a>
         ))}
-      </nav>
+      </motion.nav>
     </header>
   );
 }

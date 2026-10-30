@@ -5,11 +5,12 @@
 Build a polished, responsive Halloween event landing page inspired by the supplied reference image.
 
 The key interaction is a short cinematic intro:
-1. A large glowing jack-o'-lantern appears.
-2. A smaller pumpkin enters the scene and moves into the large pumpkin.
-3. The large pumpkin reacts, shakes and glows brighter.
-4. The pumpkin bursts into orange light, particles and smoke.
+1. A large pale jack-o'-lantern appears in its own intro scene.
+2. Seven small pumpkins enter from different directions and move into the large pumpkin.
+3. The large pumpkin progressively gains its orange color, reacts and glows brighter.
+4. The pumpkin bursts into an orange screen-covering flash, particles and smoke.
 5. The explosion clears to reveal the finished Halloween event hero page.
+6. Small pieces of pumpkin skin drift down over the revealed hero.
 
 The finished site should feel like a premium Halloween event campaign, not a generic dashboard.
 
@@ -89,16 +90,14 @@ Never use a generated image as the entire website screenshot. Keep all copy, but
 
 Implement a deterministic sequence with a clear state machine:
 
-`loading -> pumpkin-enter -> collision -> explosion -> revealed`
+`pumpkin-scene -> explosion -> revealing -> revealed`
 
 Suggested timing (adjust after testing):
-- 0.0–0.6s: fade in the dark background and subtle ambient glow.
-- 0.4–1.4s: giant pumpkin scales/fades into its hero position.
-- 1.5–3.0s: small pumpkin enters from the left or lower-left, bounces lightly, then moves into the giant pumpkin's mouth/center.
-- 3.0–3.6s: giant pumpkin shakes, scales slightly and increases its internal glow.
-- 3.6–4.5s: brief white/orange flash, explosion expands, pumpkin artwork disappears.
-- 4.5–6.0s: explosion particles and smoke fade; hero content reveals with a staggered fade/slide.
-- 6.0s onward: subtle ambient pumpkin float/glow can continue.
+- 0.0–0.6s: fade in the dark pumpkin scene and subtle ambient glow.
+- 0.6–7.8s: seven small pumpkins enter from distinct directions, turn orange in flight and move into the giant pumpkin's mouth; pause briefly before the fifth entry.
+- With each collision: giant pumpkin progressively gains color, shakes and glows brighter.
+- 7.8–8.8s: bright flash and explosion expand over the full screen in orange.
+- 8.8s onward: hero elements reveal underneath as the orange cover, particles and smoke clear.
 
 The sequence should feel quick and intentional. Aim for approximately 5–7 seconds total.
 
